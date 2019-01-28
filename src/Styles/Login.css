@@ -1,0 +1,54 @@
+/* body {
+  /* Aquí el origen de la imagen */
+
+  /* background-image: url('../pictures/fondo.jpeg');
+  /* Fijar la imagen de fondo este vertical y */
+    /* horizontalmente y centrado */
+  /* background-position: center; */
+
+  /* Esta imagen no debe de repetirse */
+  /* background-repeat: no-repeat; */
+
+  /* COn esta regla fijamos la imagen en la pantalla. */
+  /* background-attachment: fixed; */
+
+  /* La imagen ocupa el 100% y se reescala */
+  /* background-size: cover; */
+
+  /* Damos un color de fondo mientras la imagen está cargando  */
+  /* background-color: #464646;
+} */
+/* Barra de division del login */
+
+.strike {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.strike > span {
+    position: relative;
+    display: inline-block;
+}
+
+.strike > span:before,
+.strike > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 9999px;
+    height: 1px;
+    background:gray;
+}
+
+.strike > span:before {
+    right: 100%;
+    margin-right: 15px;
+}
+
+.strike > span:after {
+    left: 100%;
+    margin-left: 15px;
+}
+/* Terminación de la barra de devisión */
