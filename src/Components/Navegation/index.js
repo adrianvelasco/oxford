@@ -1,116 +1,93 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import {
-  Drawer, CssBaseline, AppBar,Toolbar, List,
-  Typography, Divider,IconButton, ListItem, 
-  ListItemIcon, ListItemText
-} from '@material-ui/core';
-
+import AppBar from '@material-ui/core/AppBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import AccountBalance from '@material-ui/icons/AccountBalance';
-
-//Rutas
-import { Link, Switch, Route } from 'react-router-dom'
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import { styles, drawer } from './style';
+import { Switch, Route } from 'react-router-dom'
 import Home from '../../Components/Home';
 import Student from '../../Components/Student';
-//Styles
-import { styles } from './style'
+import ListUser from '../../Components/ListUser';
 
-class Navegation extends Component {
+class ResponsiveDrawer extends Component {
   constructor(props){
     super(props);
     this.state = {
-      open: false,
+      mobile: false,
     };
 
-    this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
-    this.handleDrawerClose= this.handleDrawerClose.bind(this);
+    this.handleDrawerToggle = this.handleDrawerToggle.bind(this);
   }
-
-  handleDrawerOpen(){
-    this.setState({ open: true });
+  
+  handleDrawerToggle(){
+    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
-
-  handleDrawerClose(){
-    this.setState({ open: false });
-  };
-  handleMenu = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
-
-
 
   render() {
     const { classes, theme } = this.props;
-    const { open } = this.state;
-
-    const home = props => <Link to="/Home" {...props} />
-    const student = props => <Link to="/Student" {...props} />
-
+    
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" className={classNames(classes.appBar, {[classes.appBarShift]: open,})}>
-          <Toolbar variant="dense" disableGutters={!open}>
-            <IconButton color="inherit" aria-label="Open drawer" onClick={this.handleDrawerOpen}
-              className={classNames(classes.menuButton, open && classes.hide)}
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerToggle}
+              className={classes.menuButton}
             >
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
-               <IconButton color="inherit">
-                  <AccountBalance/>
-              </IconButton>
               OxfordHouse
             </Typography>
           </Toolbar>
         </AppBar>
-        <Drawer className={classes.drawer} variant="persistent" anchor="left" open={open} classes={{ paper: classes.drawerPaper,}}>
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={this.handleDrawerClose}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </IconButton> 
-          </div>
-          <Divider />
-            <List component="nav">
-            <ListItem button component={home}>
-              <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItem>
-            <ListItem button component={student}>
-              <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Student" />
-            </ListItem>
-          </List>
-        </Drawer>
-        <main className={classNames(classes.content, {[classes.contentShift]: open,})}  >
-          <div className={classes.drawerHeader} />
-          <Switch>
-            <Route  path="/Home" component={Home} />
-            <Route  path="/Student" component={Student} />
-          </Switch>
+        <nav className={classes.drawer}>
+          <Hidden smUp implementation="css">
+            <Drawer
+              container={this.props.container}
+              variant="temporary"
+              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+              open={this.state.mobileOpen}
+              onClose={this.handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Drawer classes={{ paper: classes.drawerPaper,}} variant="permanent" open>
+              {drawer}
+            </Drawer>
+          </Hidden>
+        </nav>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+            <Switch>
+              <Route  path="/Home" component={Home} />
+              <Route  path="/Student" component={Student} />
+              <Route  path="/ListUser" component={ListUser} />
+            </Switch>
         </main>
       </div>
     );
   }
 }
 
-Navegation.propTypes = {
+ResponsiveDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
+  container: PropTypes.object,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(Navegation);
+export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);

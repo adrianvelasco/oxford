@@ -1,4 +1,5 @@
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+// Exportacion de constante de Estilo
 
 export const styles = theme => ({
   main:{
@@ -7,7 +8,7 @@ export const styles = theme => ({
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]:{
-      width:600,
+      width:450,
       marginLeft: 'auto',
       marginRight: 'auto',
     },
@@ -19,26 +20,34 @@ export const styles = theme => ({
     alignItems: 'center',
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: '#FF5733',
+  },
   form: {
-    width: '100%',
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing.unit,
   },
   submit: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 2,
+
   },
-  root: {
-    width: '100%',
-    maxWidth: '360px',
-    backgroundColor: theme.palette.background.paper,
-  },
+  Checbox:{
+    marginLeft: theme.spacing.unit * -1,
+  }
 });
 
-export const Guardar = createMuiTheme ({
-    typography: {
-        useNextVariants: true,
+export const ButtonIniciar = createMuiTheme({
+  typography:{
+    useNextVariants: true,
+  },
+  palette:
+  {
+    primary:{
+      main:'#ff5722'
     },
-    palette:
-    {primary:{
-    main: '#ff5722',
-    }}
- });
+  },  
+});
+
+
+

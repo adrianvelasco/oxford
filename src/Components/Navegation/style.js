@@ -1,62 +1,78 @@
-const drawerWidth = 240;
+import React from 'react';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import Divider from '@material-ui/core/Divider';
+import { Link } from 'react-router-dom'
+import ListIcon from '@material-ui/icons/List';
 
-export const styles = theme => ({
+const drawerWidth = 250;
+
+const student = props => <Link to="/Student" {...props} />
+const home = props => <Link to="/Home" {...props} />
+const Listuser = props => <Link to="/ListUser" {...props} />
+
+export const drawer = (
+  <div>
+    <div/>
+    <Divider />
+     <List component="nav">
+        <ListItem button component={home}>
+          <ListItemIcon>
+            <DraftsIcon />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem button component={student}>
+          <ListItemIcon>
+            <AccountCircle />
+          </ListItemIcon>
+          <ListItemText primary="Register Student"/>
+        </ListItem>
+        <ListItem button component={Listuser}>
+          <ListItemIcon>
+            <ListIcon />
+          </ListItemIcon>
+          <ListItemText primary="List User" />
+        </ListItem>
+      </List>
+  </div>
+);
+
+export const  styles = theme => ({
   root: {
     display: 'flex',
   },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
   },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
+  appBar: {
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
   },
   menuButton: {
-    marginLeft: 12,
     marginRight: 20,
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
   },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
+  toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
   },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  },
   content: {
     flexGrow: 1,
+    overflow: 'auto',
     padding: theme.spacing.unit * 3,
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
-  avatar: {
-    margin: theme.spacing.unit,
-    backgroundColor: '#FF5733',
   },
 });
+
+  

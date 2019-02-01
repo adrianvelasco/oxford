@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
-  Avatar, CssBaseline, Paper, Typography, 
+  CssBaseline, Paper, Typography, 
   Grid, TextField, Button,
   InputAdornment, IconButton
 } from '@material-ui/core';
 import {  withStyles, MuiThemeProvider } from '@material-ui/core/styles';
-import { AccountCircle, VisibilityOff, Visibility} from '@material-ui/icons';
+import { VisibilityOff, Visibility} from '@material-ui/icons';
 import { styles, Guardar } from './style';
+
+
 
 class FormUser extends Component{
     constructor(){
@@ -30,6 +32,7 @@ class FormUser extends Component{
           countryCode: '',
           phone: '',
           showPassword: '',
+          
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -48,7 +51,11 @@ class FormUser extends Component{
         });
     }
 
-    handleAddUser = async () => {
+
+
+    handleAddUser = async (e) => {
+       e.preventDefault();
+      
     const data = {
       "username": this.state.username,
       "password": this.state.password,
@@ -90,8 +97,28 @@ class FormUser extends Component{
 
     await fetch(request)
     .then(response => response.json())
-    .then(data => this.setState({ users: [...this.state.users, data] }))
     .catch(error => console.log(error))
+
+    alert(JSON.stringify(data));
+
+    this.setState({
+      username: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      role: '',
+      birthdate: '',
+      email: '' ,
+      addressLine1: '',
+      addressLine2: '',
+      reference: '',
+      neighborhood: '',
+      estado: '',
+      city: '',
+      zipCode: '',
+      countryCode: '',
+      phone: ''
+    });
   };
 
 
@@ -100,30 +127,32 @@ class FormUser extends Component{
     const {classes} = this.props;
     let content = (
       <div>
+      <main className={classes.main}>
         <CssBaseline/>
         <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <AccountCircle/>
-          </Avatar>
           <form className={classes.form} onSubmit={this.handleAddUser}>
             <Grid container spacing={24}>
                 <Grid item xs={12} sm={12}>
-                  <Typography variant="h6" gutterBottom>
-                     Datos del Usuario
+                </Grid>
+                <Grid item xs={12} sm={12}>
+                  <Typography variant="display1" gutterBottom>
+                      Agregar nuevo usuario
                   </Typography>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                     <TextField
                      fullWidth
                      id="firstName"
                      name="firstName"
                      type="text"
                      label="Nombre"
+                     className={`form-control ${this.state.nameError ? 'is-invalid' : ''}`}
                      value={this.state.firstName}
                      onChange={this.handleInputChange}
+                     
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                     <TextField
                     fullWidth
                      id="lastName"
@@ -133,7 +162,7 @@ class FormUser extends Component{
                      value={this.state.lastName}
                      onChange={this.handleInputChange}/>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                     <TextField
                     fullWidth
                      id="role"
@@ -143,18 +172,17 @@ class FormUser extends Component{
                      value={this.state.role}
                      onChange={this.handleInputChange}/>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                     <TextField
                       fullWidth
                       id="birthdate"
                       type="date"
                       name="birthdate"
-                      label="Cumpleaños"
                       value={this.state.birthdate}
                       onChange={this.handleInputChange}
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                     <TextField
                     fullWidth
                      id="email"
@@ -164,7 +192,7 @@ class FormUser extends Component{
                      value={this.state.email}
                      onChange={this.handleInputChange}/>
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={6} sm={6}>
                     <TextField
                      fullWidth
                       InputProps={{
@@ -176,23 +204,23 @@ class FormUser extends Component{
                      }}
                      id="countryCode"
                      name="countryCode"
-                     type="text"
+                     type="number"
                      label="código de país"
                      value={this.state.countryCode}
                      onChange={this.handleInputChange}/>
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={6} sm={6}>
                     <TextField
                      fullWidth
                      id="phone"
                      name="phone"
-                     type="text"
+                     type="number"
                      label="Telefono"
                      value={this.state.phone}
                      onChange={this.handleInputChange}
                      />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                     <TextField
                       name="username"
                       required
@@ -203,7 +231,7 @@ class FormUser extends Component{
                       onChange={this.handleInputChange}
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                     <TextField
                       name="password"
                       required
@@ -228,11 +256,11 @@ class FormUser extends Component{
                     />
                 </Grid>
                 <Grid item xs={12} sm={12}>
-                  <Typography variant="h6" gutterBottom>
-                    Datos del Domicilio
+                  <Typography variant="display1" gutterBottom>
+                      Domicilio 
                   </Typography>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                     <TextField
                       fullWidth
                       id="addressLine1"
@@ -243,7 +271,7 @@ class FormUser extends Component{
                       onChange={this.handleInputChange}
                      />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                     <TextField
                       fullWidth
                       id="addressLine2"
@@ -254,7 +282,7 @@ class FormUser extends Component{
                       onChange={this.handleInputChange}
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                     <TextField
                      fullWidth
                      id="reference"
@@ -265,7 +293,7 @@ class FormUser extends Component{
                      onChange={this.handleInputChange}
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                     <TextField
                      fullWidth
                      id="neighborhood"
@@ -276,17 +304,18 @@ class FormUser extends Component{
                      onChange={this.handleInputChange}
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
+                <Grid item xs={12} sm={12}>
+                   <TextField
                      fullWidth
                      id="estado"
                      name="estado"
                      type="text"
                      label="Estado"
                      value={this.state.estado}
-                     onChange={this.handleInputChange}/>
+                     onChange={this.handleInputChange}
+                    />
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={12} sm={12}>
                     <TextField
                      fullWidth
                      id="city"
@@ -297,11 +326,12 @@ class FormUser extends Component{
                      onChange={this.handleInputChange}
                     />
                 </Grid>
-                <Grid item xs={6} sm={3}>
+                <Grid item xs={12} sm={12}>
                     <TextField
+                     fullWidth
                      id="zipCode"
                      name="zipCode"
-                     type="text"
+                     type="number"
                      label="Codigo postal"
                      value={this.state.zipCode}
                      onChange={this.handleInputChange}
@@ -315,6 +345,7 @@ class FormUser extends Component{
             </Grid>
           </form>
         </Paper>
+      </main>
       </div>
     );
     return content;

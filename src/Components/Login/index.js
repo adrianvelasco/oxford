@@ -51,7 +51,7 @@ class Login extends Component{
     }
 
 
-    const url = 'http://192.168.1.117:3000/auth/login';
+    const url = 'http://localhost:3000/auth/login';
 
     const settings = {
       method: 'POST',
@@ -104,7 +104,7 @@ class Login extends Component{
              </Avatar>
              <form className={classes.form} onSubmit={this.handleLogin}>
               <FormControl margin="normal" required fullWidth>
-                <TextField name="username" required id="outlined-required" placeholder="Usuario"  variant="outlined" value={this.state.username} onChange={this.handleInputChange} />
+                <TextField name="username" required id="outlined-required" placeholder="Usuario"  variant="outlined" value={this.state.username} onChange={this.handleInputChange}  />
                 <TextField name="password" required id="filled-adornment-password" placeholder="Contraseña" margin="normal" variant="outlined" value={this.state.password} onChange={this.handleInputChange}
                   type={this.state.showPassword ? 'text' : 'password'}
                   InputProps={{

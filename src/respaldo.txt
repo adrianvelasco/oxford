@@ -1,0 +1,378 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
+import {
+  Drawer, CssBaseline, AppBar,Toolbar, List,
+  Typography, Divider,IconButton, ListItem, 
+  ListItemIcon, ListItemText
+} from '@material-ui/core';
+
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import AccountBalance from '@material-ui/icons/AccountBalance';
+
+//Rutas
+import { Link, Switch, Route } from 'react-router-dom'
+import Home from '../../Components/Home';
+import Student from '../../Components/Student';
+//Styles
+import { styles } from './style'
+
+class Navegation extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      open: false,
+    };
+
+    this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
+    this.handleDrawerClose= this.handleDrawerClose.bind(this);
+  }
+
+  handleDrawerOpen(){
+    this.setState({ open: true });
+  };
+
+  handleDrawerClose(){
+    this.setState({ open: false });
+  };
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+
+
+  render() {
+    const { classes, theme } = this.props;
+    const { open } = this.state;
+
+    const home = props => <Link to="/Home" {...props} />
+    const student = props => <Link to="/Student" {...props} />
+
+    return (
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position="fixed" className={classNames(classes.appBar, {[classes.appBarShift]: open,})}>
+          <Toolbar variant="dense" disableGutters={!open}>
+            <IconButton color="inherit" aria-label="Open drawer" onClick={this.handleDrawerOpen}
+              className={classNames(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" noWrap>
+               <IconButton color="inherit">
+                  <AccountBalance/>
+              </IconButton>
+              OxfordHouse
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer className={classes.drawer} variant="persistent" anchor="left" open={open} classes={{ paper: classes.drawerPaper,}}>
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={this.handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton> 
+          </div>
+          <Divider />
+            <List component="nav">
+            <ListItem button component={home}>
+              <ListItemIcon>
+                <DraftsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItem>
+            <ListItem button component={student}>
+              <ListItemIcon>
+                <DraftsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Student" />
+            </ListItem>
+          </List>
+        </Drawer>
+        <main className={classNames(classes.content, {[classes.contentShift]: open,})}  >
+          <div className={classes.drawerHeader} />
+          <Switch>
+            <Route  path="/Home" component={Home} />
+            <Route  path="/Student" component={Student} />
+          </Switch>
+        </main>
+      </div>
+    );
+  }
+}
+
+Navegation.propTypes = {
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles, { withTheme: true })(Navegation);
+const drawerWidth = 240;
+
+export const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginLeft: 12,
+    marginRight: 20,
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 3,
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: '#FF5733',
+  },
+});
+
+
+//
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
+import {
+  Drawer, CssBaseline, AppBar,Toolbar, List,
+  Typography, Divider,IconButton, ListItem, 
+  ListItemIcon, ListItemText
+} from '@material-ui/core';
+
+import MenuIcon from '@material-ui/icons/Menu';
+import ListIcon from '@material-ui/icons/List';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import AccountBalance from '@material-ui/icons/AccountBalance';
+
+//Rutas
+import { Link, Switch, Route } from 'react-router-dom'
+import Home from '../../Components/Home';
+import Student from '../../Components/Student';
+import ListUser from '../../Components/ListUser';
+//Styles
+import { styles } from './style'
+
+class Navegation extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      open: false,
+    };
+
+    this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
+    this.handleDrawerClose= this.handleDrawerClose.bind(this);
+  }
+
+  handleDrawerOpen(){
+    this.setState({ open: true });
+  };
+
+  handleDrawerClose(){
+    this.setState({ open: false });
+  };
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+
+
+  render() {
+    const { classes, theme } = this.props;
+    const { open } = this.state;
+    const student = props => <Link to="/Student" {...props} />
+    const home = props => <Link to="/Home" {...props} />
+    const Listuser = props => <Link to="/ListUser" {...props} />
+
+    return (
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position="fixed" className={classNames(classes.appBar, {[classes.appBarShift]: open,})}>
+          <Toolbar variant="dense" disableGutters={!open}>
+            <IconButton color="inherit" aria-label="Open drawer" onClick={this.handleDrawerOpen}
+              className={classNames(classes.menuButton, open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" noWrap>
+               <IconButton color="inherit">
+                  <AccountBalance/>
+              </IconButton>
+              OxfordHouse
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer className={classes.drawer} variant="persistent" anchor="left" open={open} classes={{ paper: classes.drawerPaper,}}>
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={this.handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton> 
+          </div>
+          <Divider />
+            <List component="nav">
+            <ListItem button component={home}>
+              <ListItemIcon>
+                <DraftsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItem>
+            <ListItem button component={student}>
+              <ListItemIcon>
+                <AccountCircle />
+              </ListItemIcon>
+              <ListItemText primary="Register Student"/>
+            </ListItem>
+            <ListItem button component={Listuser}>
+              <ListItemIcon>
+                <ListIcon />
+              </ListItemIcon>
+              <ListItemText primary="List User" />
+            </ListItem>
+          </List>
+        </Drawer>
+        <main className={classNames(classes.content, {[classes.contentShift]: open,})}  >
+          <div className={classes.drawerHeader} />
+          <Switch>
+            <Route  path="/Home" component={Home} />
+            <Route  path="/Student" component={Student} />
+            <Route  path="/ListUser" component={ListUser} />
+          </Switch>
+        </main>
+      </div>
+    );
+  }
+}
+
+Navegation.propTypes = {
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles, { withTheme: true })(Navegation);
+
+
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import { Table, TableBody, TableCell, TableHead, Paper, TableRow} from '@material-ui/core';
+
+import { styles } from './style';
+
+class ListUser extends Component{
+  constructor(props){
+      super(props);
+      this.state = {
+        users: []
+      }
+  }
+  static propTypes = {
+    users: PropTypes.array.isRequired
+  }
+
+  componentDidMount = async () => {
+    const url = 'http://192.168.1.117:3000/users';
+
+    const settings = {
+      method: 'GET'
+    };
+
+    const request = new Request(url, settings);
+
+    await fetch(request)
+    .then(response => response.json())
+    .then(data => this.setState({users: data}))
+    .catch(error => console.log(error))
+
+  }
+
+  render(){
+    const users = this.state.users;
+    // console.log(users);
+    const { classes } = this.props;
+
+    return (
+      <div className="row">
+          <Paper className={classes.root}>
+         <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="right">Nombre</TableCell>
+                  <TableCell align="right">Usuario</TableCell>
+                  <TableCell align="right">Rol</TableCell>
+                  <TableCell align="right">Cumpleaños</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+              {users && users.map((user, i) =>
+                 <TableRow key={i}>
+                   <TableCell align="right">{user.firstName + ' ' + user.lastName }</TableCell>
+                   <TableCell align="right">{ user.username}</TableCell>
+                   <TableCell align="right">{ user.role}</TableCell>
+                   <TableCell align="right">{user.birthdate}</TableCell>
+                   <TableCell></TableCell>
+                 </TableRow>
+               )}
+              </TableBody>
+            </Table>
+          </Paper>
+      </div>
+    )
+  }
+}
+ListUser.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default  withStyles(styles)(ListUser);
+
