@@ -7,17 +7,10 @@ export const styles = theme => ({
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]:{
-      width:600,
-      marginLeft: 'auto',
+      width:550,
+      marginLeft: theme.spacing.unit * 2,
       marginRight: 'auto',
     },
-  },
-  paper: {
-    marginTop: theme.spacing.unit * 3,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
   form: {
     width: '100%',

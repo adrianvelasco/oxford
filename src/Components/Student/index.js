@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
-  CssBaseline, Paper, Typography, 
+  CssBaseline, Typography, 
   Grid, TextField, Button,
   InputAdornment, IconButton
 } from '@material-ui/core';
@@ -129,7 +129,6 @@ class FormUser extends Component{
       <div>
       <main className={classes.main}>
         <CssBaseline/>
-        <Paper className={classes.paper}>
           <form className={classes.form} onSubmit={this.handleAddUser}>
             <Grid container spacing={24}>
                 <Grid item xs={12} sm={12}>
@@ -344,7 +343,6 @@ class FormUser extends Component{
                 </MuiThemeProvider>
             </Grid>
           </form>
-        </Paper>
       </main>
       </div>
     );

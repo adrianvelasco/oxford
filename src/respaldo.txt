@@ -567,3 +567,145 @@ ReactDOM.render(
   </BrowserRouter>,
 document.getElementById("root"));
 serviceWorker.unregister();
+
+
+
+//Navegation 
+
+import React, {Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import { AppBar, Toolbar, Typography, IconButton, Drawer, Button } from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu';
+import { styles } from './style';
+//Routes
+import Routes from '../../Routes/Routes.js';
+import { sideList } from './Routes';
+
+
+class Navegation extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      left: false,
+    }
+  }
+
+  toggleDrawer = (side, open) => () => {
+    this.setState({
+      [side]: open,
+    });
+  };
+
+  render(){
+    const { classes } = this.props;
+    
+    return (
+      <div className={classes.root}>
+        <AppBar position="fixed" style={{ background : '#FF5733' }}>
+          <Toolbar>
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.toggleDrawer('left', true)}>
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              OxfordHouse
+            </Typography>
+            <Button color="inherit">Login</Button>
+          </Toolbar>
+        </AppBar>
+         <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+          <div tabIndex={0} role="button" onClick={this.toggleDrawer('left', false)} onKeyDown={this.toggleDrawer('left', false)}>
+            {sideList}
+          </div>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+            <Routes/>
+        </main>
+      </div>
+    );
+  }
+}
+
+Navegation.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Navegation);
+
+
+//Routes de Navegation
+
+import React from 'react';
+import { List, ListItem, ListItemIcon, ListItemText, Divider, IconButton, Typography } from '@material-ui/core';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import MenuIcon from '@material-ui/icons/Menu';
+import ListIcon from '@material-ui/icons/List';
+import { Link } from 'react-router-dom'
+
+
+
+const student = props => <Link to="/Student" {...props} />
+const home = props => <Link to="/Home" {...props} />
+const Listuser = props => <Link to="/ListUser" {...props} />
+
+export const sideList = (
+  <div>
+     <List component="nav">
+         <ListItem >
+            <IconButton color="inherit" aria-label="Open drawer" >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit" noWrap>
+                OxfordHouse
+            </Typography>
+          </ListItem>
+          <Divider />
+          <ListItem button component={home}>
+            <ListItemIcon>
+              <DraftsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItem>
+          <ListItem button component={student}>
+            <ListItemIcon>
+              <AccountCircle />
+            </ListItemIcon>
+            <ListItemText primary="Register Student"/>
+          </ListItem>
+          <ListItem button component={Listuser}>
+            <ListItemIcon>
+              <ListIcon />
+            </ListItemIcon>
+            <ListItemText primary="List User" />
+          </ListItem>
+      </List>
+  </div>
+);
+
+// Styles
+export const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
+  content: {
+    flexGrow: 1,
+    overflow: 'auto',
+    padding: theme.spacing.unit * 2,
+  },
+  toolbar: theme.mixins.toolbar,
+});

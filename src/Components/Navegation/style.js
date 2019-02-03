@@ -1,24 +1,33 @@
+const drawerWidth = 240;
+
 export const styles = theme => ({
   root: {
-    flexGrow: 1,
+    display: 'flex',
   },
-  grow: {
-    flexGrow: 1,
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+  },
+  appBar: {
+    marginLeft: drawerWidth,
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
   },
   menuButton: {
-    marginLeft: -12,
     marginRight: 20,
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
   },
-  list: {
-    width: 250,
-  },
-  fullList: {
-    width: 'auto',
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
   },
   content: {
     flexGrow: 1,
-    overflow: 'auto',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 3,
   },
-  toolbar: theme.mixins.toolbar,
 });
